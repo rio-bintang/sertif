@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="eng">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bangun Datar</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <%- include('partials/navbar')%>
+    <main class="container mt-3">
+      <h1 class="text-center">Dashboard</h1>
+      <h2 class="text-left">Jumlah Perhitungan</h2>
+      <section class="mt-3">
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total Perhitungan</h5>
+                <p class="card-text">
+                  <span class="fs-3" id="totalPerhitungan">0</span> Kali
+                </p>
+                <a href="/history" class="btn btn-primary d-block"
+                  >Riwayat Perhitungan</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total Segitiga</h5>
+                <p class="card-text">
+                  <span class="fs-3" id="totalSegitiga">0</span> Kali
+                </p>
+                <a href="/segitiga" class="btn btn-primary d-block"
+                  >Hitung Luas Segitiga</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total Persegi</h5>
+                <p class="card-text">
+                  <span class="fs-3" id="totalPersegi">0</span> Kali
+                </p>
+                <a href="/persegi" class="btn btn-primary d-block"
+                  >Hitung Luas Persegi</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Total Lingkaran</h5>
+                <p class="card-text">
+                  <span class="fs-3" id="totalLingkaran">0</span> Kali
+                </p>
+                <a href="/lingkaran" class="btn btn-primary d-block"
+                  >Hitung Luas Lingkaran</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="mt-4">
+        <h2>Persentase</h2>
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Persentase Segitiga</h5>
+                <p class="card-text">
+                  <span class="fs-3" id="persentaseSegitiga">0</span> Persen
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Persentase Persegi</h5>
+                <p class="card-text">
+                  <span class="fs-3" id="persentasePersegi">0</span> Persen
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Persentase Lingkaran</h5>
+                <p class="card-text">
+                  <span class="fs-3" id="persentaseLingkaran">0</span> Persen
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+      integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const totalPerhitungan = document.getElementById("totalPerhitungan");
+      const totalSegitiga = document.getElementById("totalSegitiga");
+      const totalPersegi = document.getElementById("totalPersegi");
+      const totalLingkaran = document.getElementById("totalLingkaran");
+      const persentaseSegitiga = document.getElementById("persentaseSegitiga");
+      const persentasePersegi = document.getElementById("persentasePersegi");
+      const persentaseLingkaran = document.getElementById("persentaseLingkaran");
+
+      fetch("/percentage")
+        .then((res) => res.json())
+        .then((data) => {
+          totalPerhitungan.innerHTML = data.total;
+          totalSegitiga.innerHTML = data.countSegitiga;
+          totalPersegi.innerHTML = data.countPersegi;
+          totalLingkaran.innerHTML = data.countLingkaran;
+          persentaseSegitiga.innerHTML = Number(data.percentageSegitiga).toFixed(2);
+          persentasePersegi.innerHTML = Number(data.percentagePersegi).toFixed(2);
+          persentaseLingkaran.innerHTML = Number(data.percentageLingkaran).toFixed(2);
+        });
+    </script>
+  </body>
+</html>
